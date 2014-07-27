@@ -14,6 +14,32 @@ The script downloads the data file and unzips it if the data has not already bee
 Out of the full data set, the script deals only with the estimated features data involving means and standard deviations.
 The script merges the subject, feature estimates of interest, and activity data from the separate data files. It combines the training and test data, then finds the average of the features estimates of interest per subject, per activity.
 
+#### Name conversion details
+The feature estimate column names in the output are drawn from the feature estimate names in the raw data, except with all "(", ")", ",", "-" characters converted to ".". For example, the raw data feature estimate name
+```
+tBodyAcc-mean()-X
+```
+is converted to
+```
+tBodyAcc.mean...X
+```
+One extra conversion is that the feature estimate name in the raw data:
+```
+angle(tBodyAccMean,gravity)
+```
+is further normalized to indicate that the gravity vector is the mean:
+```
+angle.tBodyAccMean.gravityMean.
+```
+A second extra conversion is that the feature estimate name in the raw data:
+```
+angle(tBodyAccJerkMean),gravityMean)
+```
+is further normalized to correctly remove the "." replacement for the extraneous ")":
+```
+angle.tBodyAccJerkMean.gravityMean.
+```
+
 #### Output
 The resulting data is output into a file named `data/tidyAverages.txt`. 
 The values in this tidy data set are the **averages** of the mean and standard deviation estimates of the given features per subject, per activity.
