@@ -89,6 +89,10 @@ result <- do.call("rbind",results)
 result$Activity <- factor( result$Activity, levels = as.character(activities$id)
                              , labels = activities$activity)
 
+## rename some of the columns into a more standard form
+names(result)[names(result)=="angle.tBodyAccMean.gravity."] <- "angle.tBodyAccMean.gravityMean."
+names(result)[names(result)=="angle.tBodyAccJerkMean..gravityMean."] <- "angle.tBodyAccJerkMean.gravityMean."
+
 ## write results into file as a table
-tidyFilename <- "data/tidyAverages.txt"
+tidyFilename <- "data/tidyHARAverages.txt"
 write.table( result, file = tidyFilename, row.names = FALSE )
