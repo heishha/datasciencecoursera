@@ -42,11 +42,11 @@ angle.tBodyAccJerkMean.gravityMean.
 ```
 
 #### Output
-The resulting data is output into a file named `data/tidyAverages.txt`. 
+The resulting data is output into a file named `data/tidyHARAverages.txt`. 
 The values for the features in this tidy data set are the **averages** of the given features per subject, per activity.
 
 #### Handling the output
 The result file is best read into R using 
 ```
-read.table( "tidyAverages.txt", header = TRUE)
+read.table( "tidyHARAverages.txt", header = TRUE)
 ```
