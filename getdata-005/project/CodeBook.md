@@ -124,6 +124,7 @@ Features are normalized and bounded within [-1,1].
 ### Data Dictionary
 * Subject
 > 1...30
+> 
 > Unique identifier for each volunteer subject
 
 * Activity
@@ -139,9 +140,9 @@ The following columns are the averages of the data for the feature variables as 
 **Feature Selection**. The column names are composed as follows:
 `feature`.`estimated variable`..`XYZ component, if applicable`
 The `estimated variable` is one of:
-    * mean: Mean value
-    * std: Standard deviation
-    * meanFreq: Weighted average of the frequency components to obtain a mean frequency
+>    * mean: Mean value
+>    * std: Standard deviation
+>    * meanFreq: Weighted average of the frequency components to obtain a mean frequency
 
 * tBodyAcc.mean...X
 * tBodyAcc.mean...Y
