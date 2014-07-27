@@ -1,5 +1,8 @@
 ## Analysis of Human Activity Recognition Using Smartphones Dataset
 
+### Author
+A H Hsieh
+
 ### Script Overview
 #### Raw data
 The script `run_analysis.R` uses the UCI Human Activity Recognition Using Smartphones Dataset
@@ -8,12 +11,12 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 
 #### Script behavior
 The script downloads the data file and unzips it if the data has not already been downloaded (into a subdirectory named "data").
-Out of the full data set, the script deals only with the features data involving means and standard deviations.
-The script merges the subject, features of interest, and activity data from the separate data files. It combines the training and test data, then finds the average of the features of interest per subject, per activity.
+Out of the full data set, the script deals only with the estimated features data involving means and standard deviations.
+The script merges the subject, feature estimates of interest, and activity data from the separate data files. It combines the training and test data, then finds the average of the features estimates of interest per subject, per activity.
 
 #### Output
 The resulting data is output into a file named `data/tidyAverages.txt`. 
-The values for the features in this tidy data set are the **averages** of the given features per subject, per activity.
+The values in this tidy data set are the **averages** of the mean and standard deviation estimates of the given features per subject, per activity.
 
 #### Handling the output
 The result file is best read into R using 
@@ -21,10 +24,10 @@ The result file is best read into R using
 read.table( "tidyAverages.txt", header = TRUE)
 ```
 
-### Source Data
+### Raw Source Data
 The following description of the raw data source is drawn directly from the feature description in the
 data bundled at http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones#
-(retrieved 26 Jul 2014).
+(retrieved 26 Jul 2014). Please see raw data documenation for more details.
 
 > The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
 > 
@@ -33,6 +36,8 @@ data bundled at http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognitio
 #### Source data reference
 
 > [1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
+
+Please see raw data documentation for more details on terms of use.
 
 #### Feature Selection 
 
@@ -94,26 +99,24 @@ data bundled at http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognitio
 > fBodyGyroJerkMag
 
 
-From each of these signals, where applicable, the following variables were estimated.
+From each of these signals, where applicable, the following variables were estimated (if applicable).
 
 mean: Mean value
 
 std: Standard deviation
 
-meanFreq: Weighted average of the frequency components to obtain a mean frequency
+meanFreq: Weighted average of the frequency components to obtain a mean frequency (applicable to the frequency domain signals)
 
 
-Additional vectors were obtained by averaging the signals in a signal window sample for angle variables. 
+Additional vectors were obtained by averaging the signals in a signal window sample, then finding the angle between the average gravity vector and the following average feature vectors. 
 
-angle.gravityMean
+tBodyAccMean
 
-angle.tBodyAccMean
+tBodyAccJerkMean
 
-angle.tBodyAccJerkMean
+tBodyGyroMean
 
-angle.tBodyGyroMean
-
-angle.tBodyGyroJerkMean
+tBodyGyroJerkMean
 
 
 See the full enumeration of the table columns below
@@ -136,12 +139,14 @@ Features are normalized and bounded within [-1,1].
   5. STANDING
   6. LAYING
 
-The following columns are the averages of the data for the feature variables as described in the section 
+The following columns are the averages of the data for the feature estimates as described in the section 
 **Feature Selection**. The column names are composed as follows:
 `feature`.`estimated variable`..`XYZ component, if applicable`
 The `estimated variable` is one of:
 >    * mean: Mean value
+>
 >    * std: Standard deviation
+>
 >    * meanFreq: Weighted average of the frequency components to obtain a mean frequency
 
 * tBodyAcc.mean...X
@@ -224,14 +229,20 @@ The `estimated variable` is one of:
 * fBodyBodyGyroJerkMag.std..
 * fBodyBodyGyroJerkMag.meanFreq..
 
-The following columns are the averages of the data for the averaged feature angle variables as described in the section 
+The following columns are the averages of the data for the averaged feature angles as described in the section 
 **Feature Selection**. The column names are composed as follows:
-angle.`feature``Estimated variable`.
+angle.`feature`Mean.gravityMean
 
 * angle.tBodyAccMean.gravity.
 * angle.tBodyAccJerkMean..gravityMean.
 * angle.tBodyGyroMean.gravityMean.
 * angle.tBodyGyroJerkMean.gravityMean.
+
+The following columns are the averages of the angle data between the averaged gravity with the averaged X, Y, and Z 
+component vectors as described in the section 
+**Feature Selection**. The column names are composed as follows:
+angle.`feature`Mean.gravityMean
+
 * angle.X.gravityMean.
 * angle.Y.gravityMean.
 * angle.Z.gravityMean.
