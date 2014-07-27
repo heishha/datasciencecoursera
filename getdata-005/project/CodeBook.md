@@ -137,7 +137,11 @@ Features are normalized and bounded within [-1,1].
 
 The following columns are the averages of the data for the feature variables as described in the section 
 **Feature Selection**. The column names are composed as follows:
-`feature`.`estimated variable`.`XYZ component, if applicable`
+`feature`.`estimated variable`..`XYZ component, if applicable`
+The `estimated variable` is one of:
+  * mean: Mean value
+  * std: Standard deviation
+  * meanFreq: Weighted average of the frequency components to obtain a mean frequency
 
 * tBodyAcc.mean...X
 * tBodyAcc.mean...Y
